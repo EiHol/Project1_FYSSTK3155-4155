@@ -6,3 +6,6 @@ This project aims to study three regression methods: Ordinary Least Squares (OLS
 
 
 To install the required packages to run the project code, download the 'requirements.txt' file and run the command ```pip install -r requirements.txt```
+
+
+In the Code folder you will find all relevant code used in throughout this project. All standard .py files contain functions, where the name of the file reflects what functionality it contains. The included Jupyter notebooks import functions from relevant .py files and were used to generate results, the name of thses files also reflect the topic of the results they produce
