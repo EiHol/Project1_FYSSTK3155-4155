@@ -11,7 +11,7 @@ from lasso import lasso_reg_mod
 
 # %%
 # Cross validation
-def cross_validation(x, y, degrees=5, lmbda=0, lass=False, n_folds=5, LOO=False, GD_meth="GD"):
+def cross_validation(x, y, degrees=5, lmbda=0, eta=0.01, lass=False, n_folds=5, LOO=False, GD_meth="GD"):
     # List for returnign results
     results_list = []
 
@@ -54,9 +54,9 @@ def cross_validation(x, y, degrees=5, lmbda=0, lass=False, n_folds=5, LOO=False,
 
         # Run predictions
         if lass:
-            result = lasso_reg_mod(X_train, X_test, y_train, y_test, lmbda=lmbda, eta=0.01, n_iter=500, GD=GD_m)
+            result = lasso_reg_mod(X_train, X_test, y_train, y_test, lmbda=lmbda, eta=eta, n_iter=1000, GD=GD_m)
         else:
-            result = fit_polynomial_mod(X_train, X_test, y_train, y_test, lmbda=lmbda, n_iter=500, GD=GD_poly, momentum=momentum)
+            result = fit_polynomial_mod(X_train, X_test, y_train, y_test, lmbda=lmbda, eta=eta, n_iter=1000, GD=GD_poly, momentum=momentum)
 
         # Append results to a list
         results_list.append(result)
@@ -66,7 +66,8 @@ def cross_validation(x, y, degrees=5, lmbda=0, lass=False, n_folds=5, LOO=False,
         "train_mse": np.mean([r["train_mse"] for r in results_list]),
         "test_mse": np.mean([r["test_mse"] for r in results_list]),
         "train_r2": np.mean([r["train_r2"] for r in results_list]),
-        "test_r2": np.mean([r["test_r2"] for r in results_list])
+        "test_r2": np.mean([r["test_r2"] for r in results_list]),
+        "theta": np.mean([r["theta"] for r in results_list])
     }
 
     return avg_results
